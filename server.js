@@ -2,8 +2,12 @@ const express = require('express');
 const app = express();
 app.use(express.static('public'));
 
-let server;
+app.get("/", (request, response) => {
+  response.sendFile(__dirname + '/views/index.html');
+});
 
+
+let server;
 function runServer() {
   const port = process.env.PORT || 8080;
   return new Promise((resolve, reject) => {

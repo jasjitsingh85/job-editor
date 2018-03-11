@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+header {
+	border-bottom: 2px solid black;
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 25px;
+}
+
+h1 {
+  font-weight: bold;
+  color: red;
+}
+
+p {
+  max-width: 600px;
+}
+
+form textarea {
+	height:300px;
+}
