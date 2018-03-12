@@ -5,33 +5,33 @@ $(function() {
 	var MOCK_JOBS = {
 	"jobs_data": [
 			{
-				"id": "1",
+				"id": 1,
 	            "title": "Marketing Analyst 1",
 	            "company": "aaaaaa",
 	            "location": "Atlanta",
-	            "description": "John Doe",
+	            "description": "Johgfsgfsge",
 	            "publishedAt": 1470016976609
 			},
 			{
-				"id": "2",
+				"id": 2,
 	            "title": "Marketing Analyst 2",
-	            "company": "aaaaaa",
+	            "company": "bbbb",
 	            "location": "Atlanta",
-	            "description": "John Doe",
+	            "description": "asf Doe",
 	            "publishedAt": 1470016976609
 			},
 			{
-				"id": "3",
+				"id": 3,
 	            "title": "Marketing Analyst 3",
-	            "company": "aaaaaa",
+	            "company": "cccccc",
 	            "location": "Atlanta",
-	            "description": "John Doe",
+	            "description": "Johsde",
 	            "publishedAt": 1470016976609
 			},
 			{
-				"id": "4",
+				"id": 4,
 	            "title": "Marketing Analyst 4",
-	            "company": "aaaaaa",
+	            "company": "dddd",
 	            "location": "Atlanta",
 	            "description": "John Doe",
 	            "publishedAt": 1470016976609
@@ -61,9 +61,11 @@ $(function() {
 
 	function addListenerOnJobRow() {
 		$('.job-row').on('click', function() {
-			let data_id = $(this).data('id');
+			let data_id = parseInt($(this).data('id'));
+			let job_description = MOCK_JOBS['jobs_data'].find(x => x.id === data_id).description;
 			$(".job-table tr").removeClass('table-active');
 			$(this).addClass("table-active")
+			$('#sample-text-area').val(job_description);
 		});
 	}
 
