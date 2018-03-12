@@ -23,3 +23,11 @@ p {
 form textarea {
 	height:300px;
 }
+
+.job-table tr {
+	cursor: pointer;
+}
+
+.job-table .selected {
+	background: black;
+}
