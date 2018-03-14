@@ -4,11 +4,11 @@ $(function() {
 	let jobs_data;
 	let BASE_URL
 	
-	// if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-	// 	 BASE_URL = "http://localhost:8080/jobs";
-	// } else {
+	if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+		 BASE_URL = "http://localhost:8080/jobs";
+	} else {
 		BASE_URL = "https://peaceful-stream-17579.herokuapp.com/jobs";
-	// }
+	}
 
 	function getDataFromApi(callback) {
 	  const settings = {
@@ -20,43 +20,6 @@ $(function() {
 	  console.log(settings)
 	  $.ajax(settings);
 	}
-	
-	// var MOCK_JOBS = {
-	// "jobs_data": [
-	// 		{
-	// 			"id": 1,
-	//             "title": "Marketing Analyst 1",
-	//             "company": "aaaaaa",
-	//             "location": "Atlanta",
-	//             "description": "Johgfsgfsge",
-	//             "publishedAt": 1470016976609
-	// 		},
-	// 		{
-	// 			"id": 2,
-	//             "title": "Marketing Analyst 2",
-	//             "company": "bbbb",
-	//             "location": "Atlanta",
-	//             "description": "asf Doe",
-	//             "publishedAt": 1470016976609
-	// 		},
-	// 		{
-	// 			"id": 3,
-	//             "title": "Marketing Analyst 3",
-	//             "company": "cccccc",
-	//             "location": "Atlanta",
-	//             "description": "Johsde",
-	//             "publishedAt": 1470016976609
-	// 		},
-	// 		{
-	// 			"id": 4,
-	//             "title": "Marketing Analyst 4",
-	//             "company": "dddd",
-	//             "location": "Atlanta",
-	//             "description": "John Doe",
-	//             "publishedAt": 1470016976609
-	// 		}
-	// 	]
-	// }
 
 	var SAVED_JOBS = {
 		jobs: [

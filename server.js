@@ -16,12 +16,6 @@ const {Job} = require('./models');
 
 app.use('/jobs', jobsRouter);
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 let server;
 function runServer(databaseUrl, port = PORT) {
   return new Promise((resolve, reject) => {
