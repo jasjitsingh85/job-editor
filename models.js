@@ -5,8 +5,9 @@ const jobSchema = mongoose.Schema({
   title: {type: String, required: true},
   company: {type: String, required: true},
   location: {type: String, required: true},
-  description: {type: String, required: true},
-
+  summary: {type: String, required: true},
+  url: {type: String, required: true},
+  description: {type: String},
 });
 
 jobSchema.methods.serialize  = function() {
@@ -15,6 +16,8 @@ jobSchema.methods.serialize  = function() {
     title: this.title,
     company: this.company,
     location: this.location,
+    summary: this.summary,
+    url: this.url,
     description: this.description
   };
 }

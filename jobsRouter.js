@@ -9,14 +9,39 @@ const jsonParser = bodyParser.json();
 
 const {Job} = require('./models');
 
+const { getJobsFromIndeed } = require('./jobUtils.js');
+
+// router.get('/', (req, res) => {
+//   Job.find()
+//   .limit(10)
+//   .then(jobs => {
+//     res.json({
+//       jobs: jobs.map (
+//         job => job.serialize())
+//       });
+//     });
+// });
+
 router.get('/', (req, res) => {
-  Job.find()
-  .limit(10)
-  .then(jobs => {
+  
+  const queryOptions = {
+    query: 'Software',
+    city: 'Seattle, WA',
+    radius: '25',
+    level: 'entry_level',
+    jobType: 'fulltime',
+    maxAge: '7',
+    sort: 'date',
+    limit: '10'
+  };
+
+  getJobsFromIndeed(queryOptions).then(jobs => {
     res.json({
       jobs: jobs.map (
         job => job.serialize())
       });
+    }).then(function() {
+      console.log("SDFSFSDF");
     });
 });
 
