@@ -1,5 +1,8 @@
 const indeed = require('indeed-scraper');
 const {Job} = require('./models');
+var https = require('follow-redirects').https
+const cheerio = require('cheerio')
+var h2p = require('html2plaintext')
 
 
 function getJobsFromIndeed(queryOptions, callback) {
@@ -27,4 +30,22 @@ function getJobsFromIndeed(queryOptions, callback) {
 	// });
 }
 
-module.exports = { getJobsFromIndeed }
+function getJobFromIndeed(url, callback) {
+
+	return new Promise (function(resolve, reject) {
+	      https.get(url, res => {
+	        res.setEncoding("utf8");
+	        let body = "";
+	        res.on("data", data => {
+	          body += data;
+	        });
+	        res.on("end", () => {
+	          const $ = cheerio.load(body)
+	          resolve(h2p($('.summary').html()));
+	        });
+	      });
+	})
+	.catch (err => console.log(err));
+}
+
+module.exports = { getJobsFromIndeed , getJobFromIndeed }

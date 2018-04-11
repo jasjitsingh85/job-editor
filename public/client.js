@@ -5,19 +5,19 @@ $(function() {
 	let BASE_URL
 	
 	if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-		 BASE_URL = "http://localhost:8080/jobs";
+		 BASE_URL = "http://localhost:8080/";
 	} else {
-		BASE_URL = "https://peaceful-stream-17579.herokuapp.com/jobs";
+		BASE_URL = "https://peaceful-stream-17579.herokuapp.com/";
 	}
 
-	function getDataFromApi(callback) {
+	function getDataFromApi(url, query, callback) {
 	  const settings = {
-	    url: BASE_URL,
+	    url: BASE_URL + url,
 	    dataType: 'json',
+	    data: { "query" : query },
 	    type: 'GET',
 	    success: callback
 	  };
-	  console.log(settings)
 	  $.ajax(settings);
 	}
 
@@ -44,7 +44,12 @@ $(function() {
 	}
 
 	$('.search-button').on('click', function() {
-		getDataFromApi(displaySearchResults);
+		let query = $('.query').val();
+		if (query.length > 0) {
+			getDataFromApi("jobs", query, displaySearchResults);
+		} else {
+			alert("Please add a job type into the search box");
+		}
 	});
 
 	function addListenerOnJobRow() {
@@ -54,7 +59,13 @@ $(function() {
 			$(".job-table tr").removeClass('table-active');
 			$(this).addClass("table-active")
 			$('#sample-text-area').val(job_description);
+			let url = "jobs/" + data_id;
+			getDataFromApi(url, "", displayJobContent)
 		});
+	}
+
+	function displayJobContent(data) {
+		$('#source-text-area').val(data['job_description']);
 	}
 
 });

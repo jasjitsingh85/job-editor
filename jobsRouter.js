@@ -2,6 +2,8 @@
 
 const bodyParser = require('body-parser');
 const express = require('express');
+// var JSSoup = require('jssoup').default
+// var https = require("https");
 
 const router = express.Router();
 
@@ -9,7 +11,7 @@ const jsonParser = bodyParser.json();
 
 const {Job} = require('./models');
 
-const { getJobsFromIndeed } = require('./jobUtils.js');
+const { getJobsFromIndeed , getJobFromIndeed } = require('./jobUtils.js');
 
 // router.get('/', (req, res) => {
 //   Job.find()
@@ -23,9 +25,9 @@ const { getJobsFromIndeed } = require('./jobUtils.js');
 // });
 
 router.get('/', (req, res) => {
-  
-  const queryOptions = {
-    query: 'Software',
+
+  let queryOptions = {
+    query: req.query.query,
     city: 'Seattle, WA',
     radius: '25',
     level: 'entry_level',
@@ -40,19 +42,34 @@ router.get('/', (req, res) => {
       jobs: jobs.map (
         job => job.serialize())
       });
-    }).then(function() {
-      console.log("SDFSFSDF");
-    });
+
+      return jobs;
+    
+    })
 });
 
-// router.get('/:id', (req, res) => {
-//   BlogPost.findById(req.params.id)
-//   .then(blogpost => res.json(blogpost.serialize()))
-//   .catch(err =>  {
-//     console.error(err)
-//     res.status(500).json({ message: 'Internal server error' })
-//   })
-// });
+
+
+router.get('/:id', (req, res) => {
+  Job.findById(req.params.id, function(err, job) {
+    console.log(job.url);
+    getJobFromIndeed(job.url)
+    .then(function(data) {
+      res.status(200).json({ job_description: data })
+    });
+  });
+  // BlogPost.findById(req.params.id)
+  // .then(blogpost => res.json(blogpost.serialize()))
+  // .catch(err =>  {
+  //   console.error(err)
+  //   res.status(500).json({ message: 'Internal server error' })
+  // })
+
+  // .then(function(data) {
+
+  //   });
+
+});
 
 // router.post('/', (req, res) => {
 //   // ensure `name` and `budget` are in request body
